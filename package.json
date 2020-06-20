@@ -1,0 +1,38 @@
+{
+	"name": "@vanekj/svatbamelicharovi",
+	"author": "Jakub Vaněk <info@jakub-vanek.eu>",
+	"version": "1.0.0",
+	"scripts": {
+		"clean": "npx rimraf ./www/public/static",
+		"build": "npm run clean && gulp build",
+		"dev": "gulp"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.10.2",
+		"@babel/preset-env": "^7.10.2",
+		"babel-eslint": "^10.1.0",
+		"cssnano": "^4.1.10",
+		"eslint": "^7.2.0",
+		"eslint-plugin-vue": "^6.2.2",
+		"gulp": "^4.0.2",
+		"gulp-babel": "^8.0.0",
+		"gulp-changed": "^4.0.2",
+		"gulp-imagemin": "^7.1.0",
+		"gulp-livereload": "^4.0.2",
+		"gulp-notify": "^3.2.0",
+		"gulp-nunjucks": "^5.0.1",
+		"gulp-plumber": "^1.2.1",
+		"gulp-postcss": "^8.0.0",
+		"gulp-rename": "^2.0.0",
+		"gulp-svg-symbols": "^3.2.3",
+		"gulp-uglify": "^3.0.2",
+		"gulp-util": "^3.0.8",
+		"imagemin-mozjpeg": "^9.0.0",
+		"imagemin-pngquant": "^9.0.0",
+		"postcss-import": "^12.0.1",
+		"postcss-preset-env": "^6.7.0",
+		"stylelint": "^13.6.0",
+		"stylelint-config-standard": "^20.0.0",
+		"stylelint-processor-html": "^1.0.0"
+	}
+}

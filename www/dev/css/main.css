@@ -1,0 +1,5 @@
+/* Variables */
+@import './partials/variables.css';
+
+/* Vendor files */
+@import './vendor/normalize.css';
