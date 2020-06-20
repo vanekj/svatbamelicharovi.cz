@@ -16,12 +16,9 @@ const babel = require('gulp-babel'),
 	postcssImport = require('postcss-import'),
 	postcssPresetEnv = require('postcss-preset-env'),
 	cssnano = require('cssnano'),
-	svgSymbols = require('gulp-svg-symbols'),
 	plumber = require('gulp-plumber'),
 	notify = require('gulp-notify'),
-	gutil = require('gulp-util'),
-	rename = require('gulp-rename'),
-	nunjucks = require('gulp-nunjucks');
+	gutil = require('gulp-util');
 
 const imageminPngQuant = require('imagemin-pngquant'),
 	imageminMozJpeg = require('imagemin-mozjpeg');
@@ -33,11 +30,6 @@ const notifyError = {
 };
 
 const path = {
-	templates: {
-		watch: 'www/dev/templates/**/*.njk',
-		src: 'www/dev/templates/*.njk',
-		dest: 'www/public'
-	},
 	styles: {
 		watch: 'www/dev/css/**/*.css',
 		src: 'www/dev/css/*.css',
@@ -49,13 +41,9 @@ const path = {
 		dest: 'www/public/static'
 	},
 	assets: {
-		watch: 'www/dev/assets/**/*.{png,jpg,jpeg,gif}',
-		src: 'www/dev/assets/**/*.{png,jpg,jpeg,gif}',
-		dest: 'www/public/static'
-	},
-	svgs: {
-		watch: 'www/dev/assets/svgs/*.svg',
-		dest: 'www/public/static'
+		watch: 'www/dev/assets/**/*',
+		src: 'www/dev/assets/**/*',
+		dest: 'www/public/assets'
 	}
 };
 
@@ -79,20 +67,6 @@ const postcssConfiguration = [
 	}),
 	cssnano()
 ];
-
-task('templates', function() {
-	return src(path.templates.src)
-		.pipe(plumber({
-			errorHandler: notify.onError(Object.assign({
-				title: 'Templates'
-			}, notifyError))
-		}))
-		.pipe(nunjucks.compile())
-		.pipe(rename({
-			extname: '.html'
-		}))
-		.pipe(dest(path.templates.dest));
-});
 
 task('styles', function() {
 	return src(path.styles.src)
@@ -138,50 +112,22 @@ task('assets', function() {
 		.pipe(dest(path.assets.dest));
 });
 
-task('svgs', function() {
-	return src(path.svgs.watch)
-		.pipe(plumber({
-			errorHandler: notify.onError(Object.assign({
-				title: 'Images - ERROR'
-			}, notifyError))
-		}))
-		.pipe(imagemin([
-			imagemin.svgo()
-		]))
-		.pipe(svgSymbols({
-			slug: (filename) => `${filename}`,
-			templates: ['default-svg'],
-			svgAttrs: {
-				style: 'display:none!important;',
-				xmlns: 'http://www.w3.org/2000/svg'
-			}
-		}))
-		.pipe(rename({
-			basename: 'svgs'
-		}))
-		.pipe(dest(path.svgs.dest));
-});
-
 task('reload', function() {
 	livereload.reload();
 });
 
 task('build', parallel([
-	'templates',
 	'styles',
 	'scripts',
-	'assets',
-	'svgs'
+	'assets'
 ]));
 
 task('default', function() {
 	livereload.listen();
 
-	watch(path.templates.watch, series('templates'));
 	watch(path.styles.watch, series('styles'));
 	watch(path.scripts.watch, series('scripts'));
 	watch(path.assets.watch, series('assets'));
-	watch(path.svgs.watch, series('svgs'));
 
 	watch('www/public/**/*', () => livereload.reload());
 });

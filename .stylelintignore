@@ -1,3 +1,4 @@
 node_modules
-static
 vendor
+www/public/assets
+www/public/static

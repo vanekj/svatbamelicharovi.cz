@@ -1,2 +1,4 @@
 .DS_Store
 node_modules
+www/public/assets
+www/public/static
