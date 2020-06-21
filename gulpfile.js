@@ -129,5 +129,7 @@ task('default', function() {
 	watch(path.scripts.watch, series('scripts'));
 	watch(path.assets.watch, series('assets'));
 
-	watch('www/public/**/*', () => livereload.reload());
+	watch('www/public/**/*').on('change', () => {
+		livereload.reload();
+	});
 });
