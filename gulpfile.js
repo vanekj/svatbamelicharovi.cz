@@ -18,7 +18,8 @@ const babel = require('gulp-babel'),
 	cssnano = require('cssnano'),
 	plumber = require('gulp-plumber'),
 	notify = require('gulp-notify'),
-	gutil = require('gulp-util');
+	gutil = require('gulp-util'),
+	imageResize = require('gulp-image-resize');
 
 const imageminPngQuant = require('imagemin-pngquant'),
 	imageminMozJpeg = require('imagemin-mozjpeg');
@@ -29,22 +30,29 @@ const notifyError = {
 	sound: 'Beep'
 };
 
-const path = {
-	styles: {
-		watch: 'www/dev/css/**/*.css',
-		src: 'www/dev/css/*.css',
-		dest: 'www/public/static'
-	},
-	scripts: {
-		watch: 'www/dev/js/**/*.js',
-		src: 'www/dev/js/*.js',
-		dest: 'www/public/static'
-	},
-	assets: {
-		watch: 'www/dev/assets/**/*',
-		src: 'www/dev/assets/**/*',
-		dest: 'www/public/assets'
-	}
+let path = {};
+path.styles = {
+	watch: 'www/dev/css/**/*.css',
+	src: 'www/dev/css/*.css',
+	dest: 'www/public/static'
+};
+path.scripts = {
+	watch: 'www/dev/js/**/*.js',
+	src: 'www/dev/js/*.js',
+	dest: 'www/public/static'
+};
+path.assets = {
+	watch: 'www/dev/assets/**/*',
+	src: 'www/dev/assets/**/*',
+	dest: 'www/public/assets'
+};
+path.galleryFull = {
+	src: 'www/dev/gallery/**/*',
+	dest: 'www/public/gallery/full'
+};
+path.galleryThumb = {
+	src: 'www/dev/gallery/**/*',
+	dest: 'www/public/gallery/thumb'
 };
 
 const babelConfiguration = {
@@ -112,6 +120,32 @@ task('assets', function() {
 		.pipe(dest(path.assets.dest));
 });
 
+task('galleryFull', function() {
+	return src(path.galleryFull.src)
+		.pipe(plumber({
+			errorHandler: gutil.log
+		}))
+		.pipe(imageResize({
+			width: 1024,
+			upscale: false
+		}))
+		.pipe(dest(path.galleryFull.dest));
+});
+
+task('galleryThumb', function() {
+	return src(path.galleryThumb.src)
+		.pipe(plumber({
+			errorHandler: gutil.log
+		}))
+		.pipe(imageResize({
+			width: 320,
+			height: 320,
+			crop: true,
+			upscale: false
+		}))
+		.pipe(dest(path.galleryThumb.dest));
+});
+
 task('reload', function() {
 	livereload.reload();
 });
@@ -119,7 +153,9 @@ task('reload', function() {
 task('build', parallel([
 	'styles',
 	'scripts',
-	'assets'
+	'assets',
+	'galleryFull',
+	'galleryThumb'
 ]));
 
 task('default', function() {
