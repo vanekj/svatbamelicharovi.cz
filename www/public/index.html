@@ -1,11 +1,10 @@
-<?php require_once 'functions.php'; ?>
 <!doctype html>
 <html lang="cs">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<title>Tereza a Jakub Melicharovi</title>
-	<link rel="stylesheet" href="static/main.css?v=1.1" />
+	<link rel="stylesheet" href="static/main.css?v=1.2" />
 </head>
 <body>
 	<div class="layout">
@@ -19,30 +18,20 @@
 				<img src="assets/kittens-front.svg" class="welcome__image" />
 			</div>
 
-			<div class="section gallery" data-gallery="wedding">
-				<?php $weddingThumbs = getGalleryImages('wedding')['thumb']; ?>
-				<?php foreach (getRandomItems($weddingThumbs, 42) as $key => $image): ?>
-					<a href="/svatba#<?=$key?>" class="gallery__item">
-						<div class="gallery__image" data-lazy="<?=$image?>"></div>
-					</a>
-				<?php endforeach; ?>
+			<div class="section gallery" data-gallery="wedding" data-url="svatba.html">
+				<div class="js-gallery-placeholder"></div>
 				<div class="gallery__bottom">
-					<a href="/svatba" class="button">Zobrazit celou galerii</a>
+					<a href="/svatba.html" class="button">Zobrazit celou galerii</a>
 				</div>
 			</div>
 
 			<div class="separator"></div>
 
-			<div class="section gallery" data-gallery="photobooth">
+			<div class="section gallery" data-gallery="photobooth" data-url="fotokoutek.html">
 				<h2>Fotokoutek</h2>
-				<?php $photoboothThumbs = getGalleryImages('photobooth')['thumb']; ?>
-				<?php foreach (getRandomItems($photoboothThumbs, 42) as $key => $image): ?>
-					<a href="/fotokoutek#<?=$key?>" class="gallery__item">
-						<div class="gallery__image" data-lazy="<?=$image?>"></div>
-					</a>
-				<?php endforeach; ?>
+				<div class="js-gallery-placeholder"></div>
 				<div class="gallery__bottom">
-					<a href="/svatba" class="button">Zobrazit celou galerii</a>
+					<a href="/fotokoutek.html" class="button">Zobrazit celou galerii</a>
 				</div>
 			</div>
 
@@ -57,8 +46,9 @@
 		<div class="pattern pattern--right"></div>
 	</div>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/intersection-observer@0.7.0/intersection-observer.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.2/dist/lazyload.min.js"></script>
-	<script src="static/main.js?v=1.1"></script>
+	<script src="static/main.js?v=1.2"></script>
 </body>
 </html>
