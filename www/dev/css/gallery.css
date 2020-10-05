@@ -1,6 +1,54 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
+
+/* Variables */
+:root {
+
+	/* Design colors definition */
+	--color-gold: #c5a86b;
+	--color-black: #030000;
+	--color-white: #fff;
+
+	/* Font settings */
+	--font-family: 'Roboto Condensed', sans-serif;
+	--font-size: 18px;
+
+	/* Template colors definition */
+	--color-primary: var(--color-black);
+	--color-secondary: var(--color-gold);
+	--color-background: var(--color-white);
+}
+
+/* Globals */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
 body {
 	position: relative;
 	margin: 0;
 	padding: 0;
 	background: #000;
+}
+
+/* Gallery */
+.go-back {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 16px;
+	margin-left: 0;
+	padding: 8px;
+	padding-left: 16px;
+	color: var(--color-white);
+	font-family: var(--font-family);
+	font-weight: 300;
+	text-align: center;
+	font-size: 16px;
+	text-decoration: none;
+	text-transform: uppercase;
+	background-color: color-mod(#000 alpha(0.6));
+	z-index: 9999;
 }
